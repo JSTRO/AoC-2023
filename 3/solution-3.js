@@ -35,6 +35,7 @@ async function processLines() {
   // console.log(uniqueSymbols);
 
   return getSumPartNums(obj, symbols);
+  // return getSumGearRatios(obj, symbols);
 }
 
 function getSumPartNums(data, symbols) {
@@ -63,7 +64,7 @@ function getSumPartNums(data, symbols) {
         let above = rowAbove && symbols.has(rowAbove[index]);
         let below = rowBelow && symbols.has(rowBelow[index]);
 
-        // check values above and below every number
+        // if there's a gear above, add index of gear to gearIndices (for that num's index) {gearIdx1: [num], gearIdx2, [num, num] }
         if (above || below) validPart = true;
 
         // if first num, check prev, diagonal above prev, diagonal below prev
