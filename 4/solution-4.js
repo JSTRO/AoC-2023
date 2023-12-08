@@ -2,13 +2,16 @@ const fs = require('fs');
 const readline = require('readline');
 
 async function main() {
-  const answer = await processLines();
-  console.log(answer);
+  const answer1 = await part1();
+  console.log('answer1', answer1);
+
+  const answer2 = await part2();
+  console.log('answer2', answer2);
 }
 
 main();
 
-async function processLines() {
+async function part1() {
   const fileStream = fs.createReadStream('input-4.txt');
   const rl = readline.createInterface({ input: fileStream });
 
@@ -32,4 +35,35 @@ async function processLines() {
   }
 
   return pointTotal;
+}
+
+async function part2() {
+  const fileStream = fs.createReadStream('input-4.txt');
+  const rl = readline.createInterface({ input: fileStream });
+
+  let arr = [];
+
+  for await (const line of rl) {
+    arr.push(line);
+  }
+
+  return processCopies(arr);
+}
+
+function processCopies(arr) {
+  const counts = new Array(arr.length).fill(1);
+
+  arr.forEach((card, i) => {
+    let split = card.split('|');
+    let myNums = split[0].trim().split(/\s+/).slice(2);
+    let winningNums = split[1].trim().split(/\s+/);
+
+    const count = myNums.filter((num) => winningNums.includes(num)).length;
+
+    for (let j = i + 1; j <= i + count; j++) {
+      counts[j] += counts[i];
+    }
+  });
+  // console.log(counts);
+  return counts.reduce((acc, count) => acc + count);
 }
