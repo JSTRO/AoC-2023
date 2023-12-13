@@ -142,8 +142,7 @@ function getSumPartNums(data, symbols) {
     sumPartNums += arrTotal;
   }
 
-  // console.log(allGearParts);
-
+  // part 2:
   for (const gearPart in allGearParts) {
     let parts = allGearParts[gearPart];
     let product = parts[0] * parts[1];
@@ -152,6 +151,7 @@ function getSumPartNums(data, symbols) {
     }
   }
 
+  console.log('sumPartNums', sumPartNums);
   console.log('sumGearRatios', sumGearRatios);
-  return sumPartNums;
+  // return sumPartNums;
 }
